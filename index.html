@@ -9,11 +9,10 @@
         :root {
             --primary-color: #e60023;
             --secondary-color: #111;
-            --text-light: #ffffff;
+            --text-light: #fff;
             --text-dark: #333;
-            --background: #fafafa;
-            --card-shadow: 0 2px 20px rgba(0,0,0,0.1);
-            --hover-shadow: 0 8px 30px rgba(0,0,0,0.15);
+            --background: #f0f0f0;
+            --card-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
 
         * {
@@ -24,7 +23,7 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             background: var(--background);
             color: var(--text-dark);
             line-height: 1.6;
@@ -33,91 +32,67 @@
         header {
             background: var(--text-light);
             padding: 1rem;
-            position: fixed;
-            width: 100%;
+            position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: var(--card-shadow);
         }
 
         .header-content {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
             display: flex;
-            align-items: center;
             justify-content: space-between;
+            align-items: center;
         }
 
         .logo {
             color: var(--primary-color);
-            font-size: 24px;
+            font-size: 1.8rem;
             font-weight: bold;
             text-decoration: none;
         }
 
         .search-bar {
-            flex: 1;
-            max-width: 800px;
-            margin: 0 2rem;
+            flex: 0 1 50%;
             position: relative;
         }
 
         .search-bar input {
             width: 100%;
-            padding: 12px 48px;
-            border: none;
-            border-radius: 24px;
+            padding: 0.8rem 1rem;
+            border-radius: 25px;
+            border: 2px solid #ddd;
+            font-size: 1rem;
             background: #efefef;
-            font-size: 16px;
         }
 
-        .search-bar i {
-            position: absolute;
-            left: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #666;
+        .search-bar input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            background: var(--text-light);
         }
 
-        .nav-buttons {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .nav-btn {
-            padding: 12px 24px;
-            border-radius: 24px;
-            border: none;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 16px;
-        }
-
-        .primary-btn {
-            background: var(--primary-color);
-            color: white;
-        }
-
-        .secondary-btn {
-            background: #efefef;
-            color: var(--text-dark);
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 80px auto 20px;
-            padding: 20px;
-            columns: 5 240px;
-            column-gap: 20px;
+        .masonry-grid {
+            columns: 5 250px;
+            column-gap: 1rem;
+            padding: 1rem;
+            max-width: 1500px;
+            margin: 0 auto;
         }
 
         .pin {
             break-inside: avoid;
-            margin-bottom: 20px;
+            margin-bottom: 1rem;
             position: relative;
             border-radius: 16px;
             overflow: hidden;
-            cursor: zoom-in;
+            background: var(--text-light);
+            box-shadow: var(--card-shadow);
+        }
+
+        .pin:hover {
+            transform: translateY(-5px);
         }
 
         .pin img {
@@ -128,97 +103,92 @@
         }
 
         .pin:hover img {
-            transform: scale(1.05);
+            transform: scale(1.02);
         }
 
-        .pin-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.5);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+        .pin-content {
             padding: 1rem;
+        }
+
+        .pin-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .pin-description {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .pin-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            background: rgba(255,255,255,0.95);
+        }
+
+        .pin-stats {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .pin-buttons {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            gap: 0.5rem;
             opacity: 0;
             transition: opacity 0.3s ease;
         }
 
-        .pin:hover .pin-overlay {
+        .pin:hover .pin-buttons {
             opacity: 1;
         }
 
-        .pin-buttons {
-            display: flex;
-            justify-content: flex-end;
-            gap: 0.5rem;
-        }
-
-        .pin-btn {
-            padding: 8px 16px;
+        .btn {
+            padding: 0.5rem 1rem;
             border-radius: 20px;
             border: none;
             cursor: pointer;
             font-weight: 600;
-            font-size: 14px;
-            background: var(--primary-color);
-            color: white;
-        }
-
-        .pin-info {
-            color: white;
-        }
-
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.9);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-        }
-
-        .modal.active {
             display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
-        .modal-content {
-            max-width: 90%;
-            max-height: 90vh;
-            position: relative;
+        .btn-save {
+            background: var(--primary-color);
+            color: var(--text-light);
         }
 
-        .modal-content img {
-            max-width: 100%;
-            max-height: 90vh;
-            border-radius: 16px;
+        .btn-more {
+            background: rgba(255,255,255,0.9);
+            color: var(--text-dark);
         }
 
-        .close-modal {
-            position: absolute;
-            top: -40px;
-            right: 0;
-            color: white;
-            font-size: 24px;
-            cursor: pointer;
+        .btn:hover {
+            transform: scale(1.05);
         }
 
         @media (max-width: 768px) {
+            .masonry-grid {
+                columns: 2 200px;
+            }
+            
             .search-bar {
                 display: none;
             }
-            .nav-buttons {
-                gap: 0.5rem;
-            }
-            .nav-btn {
-                padding: 8px 16px;
-                font-size: 14px;
+        }
+
+        @media (max-width: 480px) {
+            .masonry-grid {
+                columns: 1 200px;
             }
         }
     </style>
@@ -230,35 +200,20 @@
                 <i class="fas fa-camera"></i> BirdLens
             </a>
             <div class="search-bar">
-                <i class="fas fa-search"></i>
-                <input type="text" placeholder="Search bird photographs...">
-            </div>
-            <div class="nav-buttons">
-                <button class="nav-btn secondary-btn">Home</button>
-                <button class="nav-btn primary-btn">Upload</button>
+                <input type="text" placeholder="Search bird photos...">
             </div>
         </div>
     </header>
 
-    <div class="container">
-        <!-- Dynamic pins will be inserted here -->
-    </div>
-
-    <div class="modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <img src="" alt="Modal Image">
-        </div>
-    </div>
+    <div class="masonry-grid" id="photo-grid"></div>
 
     <script>
-        // Bird photo data
         const birds = [
             {
                 id: 'purple-sunbird',
                 title: 'Purple Sunbird',
                 description: 'A vibrant Purple Sunbird in its natural habitat',
-                image: 'https://source.unsplash.com/random/800x1000?bird,purple',
+                image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Male_purple_sunbird_%28Cinnyris_asiaticus%29_2.jpg/1280px-Male_purple_sunbird_%28Cinnyris_asiaticus%29_2.jpg',
                 likes: 234,
                 saves: 45
             },
@@ -266,7 +221,7 @@
                 id: 'garden-sunbird',
                 title: 'Garden Sunbird',
                 description: 'A beautiful Garden Sunbird perched among flowers',
-                image: 'https://source.unsplash.com/random/800x1200?bird,garden',
+                image: 'https://upload.wikimedia.org/wikipedia/commons/7/76/Olive-backed_Sunbird_%28Male%29.jpg',
                 likes: 189,
                 saves: 32
             },
@@ -274,7 +229,7 @@
                 id: 'red-wattled-lapwing',
                 title: 'Red Wattled Lapwing',
                 description: 'A Red Wattled Lapwing in the grasslands',
-                image: 'https://source.unsplash.com/random/800x900?bird,red',
+                image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Red-wattled_Lapwing_I_IMG_914.jpg/1280px-Red-wattled_Lapwing_I_IMG_914.jpg',
                 likes: 456,
                 saves: 78
             },
@@ -282,15 +237,15 @@
                 id: 'fork-tailed-drongo',
                 title: 'Fork Tailed Drongo',
                 description: 'A Fork Tailed Drongo showing its glossy feathers',
-                image: 'https://source.unsplash.com/random/800x1100?bird,black',
+                image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Fork-tailed_drongo_%28Dicrurus_adsimilis%29.jpg/1280px-Fork-tailed_drongo_%28Dicrurus_adsimilis%29.jpg',
                 likes: 321,
                 saves: 56
             },
             {
                 id: 'parakeet',
-                title: 'Parakeet',
-                description: 'A lively Parakeet exploring its surroundings',
-                image: 'https://source.unsplash.com/random/800x1300?bird,green',
+                title: 'Rose-ringed Parakeet',
+                description: 'A lively Rose-ringed Parakeet exploring its surroundings',
+                image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Rose-ringed_Parakeet_%28Male%29_Psittacula_krameri_by_Dr_Raju_Kasambe_DSCN7602_%284%29.jpg/1280px-Rose-ringed_Parakeet_%28Male%29_Psittacula_krameri_by_Dr_Raju_Kasambe_DSCN7602_%284%29.jpg',
                 likes: 567,
                 saves: 89
             },
@@ -298,7 +253,7 @@
                 id: 'red-whiskered-bulbul',
                 title: 'Red-whiskered Bulbul',
                 description: 'A charming Red-whiskered Bulbul on a branch',
-                image: 'https://source.unsplash.com/random/800x950?bird,red',
+                image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Red-whiskered_Bulbul_%28Pycnonotus_jocosus%29.jpg/1280px-Red-whiskered_Bulbul_%28Pycnonotus_jocosus%29.jpg',
                 likes: 432,
                 saves: 67
             },
@@ -306,85 +261,84 @@
                 id: 'scaly-breasted-munia',
                 title: 'Scaly Breasted Munia',
                 description: 'A Scaly Breasted Munia in the wild',
-                image: 'https://source.unsplash.com/random/800x1400?bird,brown',
+                image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Scaly-breasted_Munia_%28Lonchura_punctulata%29_Photograph_by_Shantanu_Kuveskar.jpg/1280px-Scaly-breasted_Munia_%28Lonchura_punctulata%29_Photograph_by_Shantanu_Kuveskar.jpg',
                 likes: 345,
                 saves: 54
             }
         ];
 
-        // Populate pins
-        const container = document.querySelector('.container');
-        birds.forEach(bird => {
-            const pin = document.createElement('div');
-            pin.className = 'pin';
-            pin.innerHTML = `
-                <img src="${bird.image}" alt="${bird.title}">
-                <div class="pin-overlay">
+        function createPinElement(bird) {
+            return `
+                <div class="pin" id="${bird.id}">
+                    <img src="${bird.image}" alt="${bird.title}">
                     <div class="pin-buttons">
-                        <button class="pin-btn save-btn">Save</button>
-                        <button class="pin-btn share-btn">Share</button>
+                        <button class="btn btn-save">
+                            <i class="fas fa-thumbtack"></i> Save
+                        </button>
+                        <button class="btn btn-more">
+                            <i class="fas fa-ellipsis-h"></i>
+                        </button>
                     </div>
-                    <div class="pin-info">
-                        <h3>${bird.title}</h3>
-                        <p>${bird.description}</p>
-                        <p><i class="fas fa-heart"></i> ${bird.likes} · <i class="fas fa-bookmark"></i> ${bird.saves}</p>
+                    <div class="pin-content">
+                        <h3 class="pin-title">${bird.title}</h3>
+                        <p class="pin-description">${bird.description}</p>
+                        <div class="pin-stats">
+                            <span><i class="fas fa-heart"></i> ${bird.likes}</span>
+                            <span><i class="fas fa-bookmark"></i> ${bird.saves}</span>
+                        </div>
                     </div>
                 </div>
             `;
-            container.appendChild(pin);
-        });
+        }
 
-        // Modal functionality
-        const modal = document.querySelector('.modal');
-        const modalImg = modal.querySelector('img');
-        const closeModal = modal.querySelector('.close-modal');
+        function renderPins() {
+            const grid = document.getElementById('photo-grid');
+            grid.innerHTML = birds.map(createPinElement).join('');
 
-        document.querySelectorAll('.pin img').forEach(img => {
-            img.addEventListener('click', () => {
-                modalImg.src = img.src;
-                modal.classList.add('active');
+            // Add click events to pins
+            document.querySelectorAll('.pin').forEach(pin => {
+                pin.addEventListener('click', () => {
+                    // You can add modal view or detailed view here
+                    console.log(`Clicked pin: ${pin.id}`);
+                });
+
+                // Prevent button clicks from triggering pin click
+                pin.querySelectorAll('.btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        if (btn.classList.contains('btn-save')) {
+                            handleSave(pin.id);
+                        } else {
+                            handleMore(pin.id);
+                        }
+                    });
+                });
             });
-        });
+        }
 
-        closeModal.addEventListener('click', () => {
-            modal.classList.remove('active');
-        });
+        function handleSave(pinId) {
+            console.log(`Saving pin: ${pinId}`);
+            // Add save functionality here
+        }
 
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.classList.remove('active');
-            }
-        });
+        function handleMore(pinId) {
+            console.log(`More options for pin: ${pinId}`);
+            // Add more options functionality here
+        }
 
-        // Save and Share functionality
-        document.querySelectorAll('.save-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                btn.innerHTML = 'Saved';
-                btn.style.background = '#111';
-            });
-        });
+        // Initialize the grid
+        renderPins();
 
-        document.querySelectorAll('.share-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                alert('Sharing functionality coming soon!');
-            });
-        });
-
-        // Search functionality
+        // Add search functionality
         const searchInput = document.querySelector('.search-bar input');
         searchInput.addEventListener('input', (e) => {
             const searchTerm = e.target.value.toLowerCase();
-            document.querySelectorAll('.pin').forEach(pin => {
-                const title = pin.querySelector('h3').textContent.toLowerCase();
-                const description = pin.querySelector('p').textContent.toLowerCase();
-                if (title.includes(searchTerm) || description.includes(searchTerm)) {
-                    pin.style.display = 'block';
-                } else {
-                    pin.style.display = 'none';
-                }
-            });
+            const filteredBirds = birds.filter(bird => 
+                bird.title.toLowerCase().includes(searchTerm) || 
+                bird.description.toLowerCase().includes(searchTerm)
+            );
+            document.getElementById('photo-grid').innerHTML = 
+                filteredBirds.map(createPinElement).join('');
         });
     </script>
 </body>
