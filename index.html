@@ -4,160 +4,388 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bird Photography Showcase</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        :root {
+            --primary-color: #e60023;
+            --secondary-color: #111;
+            --text-light: #ffffff;
+            --text-dark: #333;
+            --background: #fafafa;
+            --card-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            --hover-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
         body {
-            font-family: 'Helvetica Neue', sans-serif;
-            background-color: #1e1e1e;
-            color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            line-height: 1.8;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, sans-serif;
+            background: var(--background);
+            color: var(--text-dark);
+            line-height: 1.6;
         }
+
         header {
-            text-align: center;
-            padding: 4em;
-            background-image: linear-gradient(to right, #4a90e2, #9013fe);
-            color: #fff;
-            font-size: 2em;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-        }
-        header h1 {
-            font-size: 3em;
-            font-weight: 700;
-            margin-bottom: 0.2em;
-        }
-        header p {
-            font-size: 1.2em;
-            font-weight: 300;
-        }
-        nav {
-            background-color: #333;
-            padding: 1em;
-            position: sticky;
+            background: var(--text-light);
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
             top: 0;
-            z-index: 100;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-        nav ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
             display: flex;
-            justify-content: center;
-            gap: 2em;
+            align-items: center;
+            justify-content: space-between;
         }
-        nav ul li a {
-            color: #f4f4f4;
+
+        .logo {
+            color: var(--primary-color);
+            font-size: 24px;
+            font-weight: bold;
             text-decoration: none;
-            font-size: 1.2em;
-            transition: color 0.3s, border-bottom 0.3s;
-            padding-bottom: 0.3em;
         }
-        nav ul li a:hover {
-            color: #ff4d4d;
-            border-bottom: 2px solid #ff4d4d;
+
+        .search-bar {
+            flex: 1;
+            max-width: 800px;
+            margin: 0 2rem;
+            position: relative;
         }
+
+        .search-bar input {
+            width: 100%;
+            padding: 12px 48px;
+            border: none;
+            border-radius: 24px;
+            background: #efefef;
+            font-size: 16px;
+        }
+
+        .search-bar i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .nav-btn {
+            padding: 12px 24px;
+            border-radius: 24px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .primary-btn {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .secondary-btn {
+            background: #efefef;
+            color: var(--text-dark);
+        }
+
         .container {
-            max-width: 1100px;
-            margin: 3em auto;
-            padding: 0 1em;
+            max-width: 1400px;
+            margin: 80px auto 20px;
+            padding: 20px;
+            columns: 5 240px;
+            column-gap: 20px;
         }
-        .blog-post {
-            background: #2a2a2a;
+
+        .pin {
+            break-inside: avoid;
+            margin-bottom: 20px;
+            position: relative;
             border-radius: 16px;
-            padding: 2em;
-            margin-bottom: 3em;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
-            transition: transform 0.3s, box-shadow 0.3s;
+            overflow: hidden;
+            cursor: zoom-in;
         }
-        .blog-post:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.9);
+
+        .pin img {
+            width: 100%;
+            display: block;
+            border-radius: 16px;
+            transition: transform 0.3s ease;
         }
-        .blog-post h2 {
-            font-size: 2.5em;
-            margin-top: 0;
-            color: #4a90e2;
+
+        .pin:hover img {
+            transform: scale(1.05);
         }
-        .blog-post .date {
-            color: #999;
-            font-size: 0.9em;
+
+        .pin-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 1rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
-        .blog-post p {
-            line-height: 1.8;
-            font-size: 1.1em;
-            color: #ddd;
+
+        .pin:hover .pin-overlay {
+            opacity: 1;
         }
-        footer {
-            background-color: #333;
-            padding: 2em;
-            text-align: center;
-            color: #f4f4f4;
-            margin-top: 3em;
-            font-size: 0.9em;
-            border-top: 2px solid #444;
+
+        .pin-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.5rem;
+        }
+
+        .pin-btn {
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .pin-info {
+            color: white;
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90vh;
+            position: relative;
+        }
+
+        .modal-content img {
+            max-width: 100%;
+            max-height: 90vh;
+            border-radius: 16px;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .search-bar {
+                display: none;
+            }
+            .nav-buttons {
+                gap: 0.5rem;
+            }
+            .nav-btn {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Bird Photography Showcase</h1>
-        <p>Capturing the beauty of birds through the lens.</p>
+        <div class="header-content">
+            <a href="#" class="logo">
+                <i class="fas fa-camera"></i> BirdLens
+            </a>
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search bird photographs...">
+            </div>
+            <div class="nav-buttons">
+                <button class="nav-btn secondary-btn">Home</button>
+                <button class="nav-btn primary-btn">Upload</button>
+            </div>
+        </div>
     </header>
-    
+
     <div class="container">
-        <!-- Bird Photo 1 -->
-        <div class="photo-card" id="purple-sunbird">
-            <img src="purple-sunbird.jpg" alt="Purple Sunbird">
-            <h3>Purple Sunbird</h3>
-            <p>A vibrant Purple Sunbird in its natural habitat.</p>
-        </div>
-        
-        <!-- Bird Photo 2 -->
-        <div class="photo-card" id="garden-sunbird">
-            <img src="garden-sunbird.jpg" alt="Garden Sunbird">
-            <h3>Garden Sunbird</h3>
-            <p>A beautiful Garden Sunbird perched among the flowers.</p>
-        </div>
-        
-        <!-- Bird Photo 3 -->
-        <div class="photo-card" id="red-wattled-lapwing">
-            <img src="red-wattled-lapwing.jpg" alt="Red Wattled Lapwing">
-            <h3>Red Wattled Lapwing</h3>
-            <p>A Red Wattled Lapwing standing gracefully in the grasslands.</p>
-        </div>
-        
-        <!-- Bird Photo 4 -->
-        <div class="photo-card" id="fork-tailed-drongo">
-            <img src="fork-tailed-drongo.jpg" alt="Fork Tailed Drongo">
-            <h3>Fork Tailed Drongo</h3>
-            <p>A Fork Tailed Drongo showcasing its glossy feathers.</p>
-        </div>
-        
-        <!-- Bird Photo 5 -->
-        <div class="photo-card" id="parakeet">
-            <img src="parakeet.jpg" alt="Parakeet">
-            <h3>Parakeet</h3>
-            <p>A lively Parakeet exploring its surroundings.</p>
-        </div>
-        
-        <!-- Bird Photo 6 -->
-        <div class="photo-card" id="red-whiskered-bulbul">
-            <img src="red-whiskered-bulbul.jpg" alt="Red-whiskered Bulbul">
-            <h3>Red-whiskered Bulbul</h3>
-            <p>A charming Red-whiskered Bulbul perched on a branch.</p>
-        </div>
-        
-        <!-- Bird Photo 7 -->
-        <div class="photo-card" id="scaly-breasted-munia">
-            <img src="scaly-breasted-munia.jpg" alt="Scaly Breasted Munia">
-            <h3>Scaly Breasted Munia</h3>
-            <p>A Scaly Breasted Munia resting peacefully in the wild.</p>
+        <!-- Dynamic pins will be inserted here -->
+    </div>
+
+    <div class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <img src="" alt="Modal Image">
         </div>
     </div>
-    <footer>
-        <p>&copy; 2024 Bird Photography Showcase. All rights reserved.</p>
-    </footer>
+
+    <script>
+        // Bird photo data
+        const birds = [
+            {
+                id: 'purple-sunbird',
+                title: 'Purple Sunbird',
+                description: 'A vibrant Purple Sunbird in its natural habitat',
+                image: 'https://source.unsplash.com/random/800x1000?bird,purple',
+                likes: 234,
+                saves: 45
+            },
+            {
+                id: 'garden-sunbird',
+                title: 'Garden Sunbird',
+                description: 'A beautiful Garden Sunbird perched among flowers',
+                image: 'https://source.unsplash.com/random/800x1200?bird,garden',
+                likes: 189,
+                saves: 32
+            },
+            {
+                id: 'red-wattled-lapwing',
+                title: 'Red Wattled Lapwing',
+                description: 'A Red Wattled Lapwing in the grasslands',
+                image: 'https://source.unsplash.com/random/800x900?bird,red',
+                likes: 456,
+                saves: 78
+            },
+            {
+                id: 'fork-tailed-drongo',
+                title: 'Fork Tailed Drongo',
+                description: 'A Fork Tailed Drongo showing its glossy feathers',
+                image: 'https://source.unsplash.com/random/800x1100?bird,black',
+                likes: 321,
+                saves: 56
+            },
+            {
+                id: 'parakeet',
+                title: 'Parakeet',
+                description: 'A lively Parakeet exploring its surroundings',
+                image: 'https://source.unsplash.com/random/800x1300?bird,green',
+                likes: 567,
+                saves: 89
+            },
+            {
+                id: 'red-whiskered-bulbul',
+                title: 'Red-whiskered Bulbul',
+                description: 'A charming Red-whiskered Bulbul on a branch',
+                image: 'https://source.unsplash.com/random/800x950?bird,red',
+                likes: 432,
+                saves: 67
+            },
+            {
+                id: 'scaly-breasted-munia',
+                title: 'Scaly Breasted Munia',
+                description: 'A Scaly Breasted Munia in the wild',
+                image: 'https://source.unsplash.com/random/800x1400?bird,brown',
+                likes: 345,
+                saves: 54
+            }
+        ];
+
+        // Populate pins
+        const container = document.querySelector('.container');
+        birds.forEach(bird => {
+            const pin = document.createElement('div');
+            pin.className = 'pin';
+            pin.innerHTML = `
+                <img src="${bird.image}" alt="${bird.title}">
+                <div class="pin-overlay">
+                    <div class="pin-buttons">
+                        <button class="pin-btn save-btn">Save</button>
+                        <button class="pin-btn share-btn">Share</button>
+                    </div>
+                    <div class="pin-info">
+                        <h3>${bird.title}</h3>
+                        <p>${bird.description}</p>
+                        <p><i class="fas fa-heart"></i> ${bird.likes} · <i class="fas fa-bookmark"></i> ${bird.saves}</p>
+                    </div>
+                </div>
+            `;
+            container.appendChild(pin);
+        });
+
+        // Modal functionality
+        const modal = document.querySelector('.modal');
+        const modalImg = modal.querySelector('img');
+        const closeModal = modal.querySelector('.close-modal');
+
+        document.querySelectorAll('.pin img').forEach(img => {
+            img.addEventListener('click', () => {
+                modalImg.src = img.src;
+                modal.classList.add('active');
+            });
+        });
+
+        closeModal.addEventListener('click', () => {
+            modal.classList.remove('active');
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+            }
+        });
+
+        // Save and Share functionality
+        document.querySelectorAll('.save-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                btn.innerHTML = 'Saved';
+                btn.style.background = '#111';
+            });
+        });
+
+        document.querySelectorAll('.share-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                alert('Sharing functionality coming soon!');
+            });
+        });
+
+        // Search functionality
+        const searchInput = document.querySelector('.search-bar input');
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            document.querySelectorAll('.pin').forEach(pin => {
+                const title = pin.querySelector('h3').textContent.toLowerCase();
+                const description = pin.querySelector('p').textContent.toLowerCase();
+                if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                    pin.style.display = 'block';
+                } else {
+                    pin.style.display = 'none';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
